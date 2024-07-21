@@ -1,1 +1,1 @@
-# IMDB Clone Project - Akash
+# IMDB Clone Project - Akash Ghadge
