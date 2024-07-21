@@ -1,2 +1,1 @@
-# IMDB Clone Project
- 
+# IMDB Clone Project - Akash
