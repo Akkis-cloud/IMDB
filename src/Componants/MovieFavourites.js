@@ -28,13 +28,15 @@ const MovieFavourites=()=>{
     const [filteredFavourites,setFilteredFavourites]=useState([]);
     const [genres,setGeneres]= useState([]);
     const [selectedGenreId,setSelectedGenreId]=useState("");
+    // below we will get aready computed data by call back 
+    // console.log("outmared");
     useEffect(()=>{
         const favouritesData=JSON.parse( localStorage.getItem("favourites")||"[]");
         const generesData=favouritesData.map(data=>data.genre_ids[0])
         setFavourites(favouritesData);
         setGeneres(Array.from(new Set(generesData)));
         setFilteredFavourites(favouritesData);
-        // console.log(new Set(generesData));
+        // console.log("mared");
     },[]);
 
     const handleGenreSelection=(e)=>{
@@ -58,19 +60,28 @@ const MovieFavourites=()=>{
             if(!sortingType){
                 return favourites;
             }
-            return [...favourites].sort((a,b)=>{
+            if(!selectedGenreId)
+            {
+                return [...favourites].sort((a,b)=>{
+                    return sortingType=== "ASC" ? a.popularity-b.popularity:b.popularity-a.popularity;
+                });
+            }
+            const withGenFil=favourites.filter(movie=>! selectedGenreId || movie.genre_ids[0]== selectedGenreId);
+            return [...withGenFil].sort((a,b)=>{
                 return sortingType=== "ASC" ? a.popularity-b.popularity:b.popularity-a.popularity;
             });
         })
     }
     const handleMovieDeletion=(movieId)=>(e)=>{
+        
         setFavourites((preFavourites)=>{
             const movieIdx=preFavourites.findIndex(fav=>fav.id==movieId);
+            
             const finalFav=[...preFavourites];
             finalFav.splice(movieIdx,1);
-            console.log(localStorage.getItem("favourites"));
+            // console.log(localStorage.getItem("favourites"));
             localStorage.setItem("favourites",JSON.stringify(finalFav));
-            console.log(localStorage.getItem("favourites"));
+            // console.log(localStorage.getItem("favourites"));
             
             return finalFav;
         })
@@ -102,9 +113,11 @@ const MovieFavourites=()=>{
                                 <th>Title</th>
                                 <th>Genre</th>
                                 <th>
-                                    <spam onClick={handlePopularitySorting} data-type="">Popularity</spam>
-                                    <spam onClick={handlePopularitySorting} data-type="ASC">^</spam>
-                                    <spam onClick={handlePopularitySorting} data-type="DES">v</spam>
+                                    <div>
+                                    <button onClick={handlePopularitySorting} data-type="">Popularity</button>
+                                    <button onClick={handlePopularitySorting} data-type="DES">↑</button>
+                                    <button onClick={handlePopularitySorting} data-type="ASC" >↓</button>
+                                    </div>
 
                                 </th>
                                 <th>Rating</th>
@@ -119,8 +132,8 @@ const MovieFavourites=()=>{
                                     <td>{favourite.title}</td>        
                                     <td>{genreids[favourite.genre_ids[0]]}</td>
                                     <td>{favourite.popularity}</td>
-                                    <td>{favourite.vote_average}</td>
-                                    <td><button onClick={handleMovieDeletion}>Delete</button></td>
+                                    <td>{favourite.vote_average}{favourite.id}</td>
+                                    <td><button onClick={handleMovieDeletion(favourite.id)}>Delete</button></td>
                                 </tr>
                 
                                 })

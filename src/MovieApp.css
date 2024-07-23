@@ -44,6 +44,9 @@
     border: 1px solid #ccc;
     padding: 10px;
 }
+.favourite-wrapper .right-section table thead tr th div button{
+    cursor: pointer;
+}
 .genre-wrapper{
     display: flex;
     width: 200px;
