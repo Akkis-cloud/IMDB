@@ -6,27 +6,23 @@ const MovieCard = ({ movie, onWatchlistUpdate,watchlist}) => {
     const addToWatchlist=(e)=>{
         // const movieId=e.target.dataset.id
         onWatchlistUpdate((prevWatchlist)=>{
-            let check=true;
-            prevWatchlist.forEach(element => {
-                if(element==movie)
-                {
-                    check=false;
-                }
-            })
-            if(check==true)
-            {
-                const favourites=[...prevWatchlist,movie];
-                localStorage.setItem("favourites",JSON.stringify(favourites))
-                return [...prevWatchlist,movie];
+            const isAlreadyInWatchlist = prevWatchlist.some(element => element.id === movie.id);
+            
+            let updatedWatchlist;
+
+            if (isAlreadyInWatchlist) {
+                
+                updatedWatchlist = prevWatchlist.filter(item => item.id !== movie.id);
+            } else {
+                
+                updatedWatchlist = [...prevWatchlist, movie];
             }
-            else{
-                const temp=prevWatchlist.filter((item)=>{
-                    return (item!=movie);
-                })
-                const favourites=[...temp];
-                localStorage.setItem("favourites",JSON.stringify(favourites))
-                return [...temp];
-            }
+
+            // Update localStorage
+            localStorage.setItem("favourites", JSON.stringify(updatedWatchlist));
+
+            return updatedWatchlist;
+            
         })
     }
     return (

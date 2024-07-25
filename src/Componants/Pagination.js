@@ -13,7 +13,7 @@ const Pagination=({onPageChange})=>{
         // here it will create array with size 10 and const arr=Array(10); , const arr2=new Array(10); above 
         // both method are same to create array.
         return [...Array(maxResultSize)].map((_,idx)=>{
-            return startingPage+idx+1;
+            return startingPage+idx;
         });
     },[]); 
     const changePage=useCallback( (e)=>{

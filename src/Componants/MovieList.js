@@ -26,7 +26,7 @@ const MovieList = () => {
         <>
             <Heading />
             <p>Total Watchlist:{watchList.length}</p>
-            <p>Popularit: ( '>' 150) {popularMovieCount}</p>
+            <p>Popularit:  ('>' 150) {popularMovieCount}</p>
             
             <div className="movie-list">
                 {!movies.length && <h1>Loading...</h1>}

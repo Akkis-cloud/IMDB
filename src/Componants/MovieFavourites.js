@@ -132,7 +132,7 @@ const MovieFavourites=()=>{
                                     <td>{favourite.title}</td>        
                                     <td>{genreids[favourite.genre_ids[0]]}</td>
                                     <td>{favourite.popularity}</td>
-                                    <td>{favourite.vote_average}{favourite.id}</td>
+                                    <td>{favourite.vote_average}</td>
                                     <td><button onClick={handleMovieDeletion(favourite.id)}>Delete</button></td>
                                 </tr>
                 
