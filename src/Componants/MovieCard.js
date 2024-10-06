@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";               // return <MovieCard key={item.id} movie={item} onWatchlistUpdate={updateWatchList}/>
 import MovieFavourites from "./MovieFavourites";
 const MovieCard = ({ movie, onWatchlistUpdate,watchlist}) => {
-        const isMovieAdded=watchlist.find(watchlistMovie=> watchlistMovie.id ==movie.id);
+        const isMovieAdded=watchlist.find(watchlistMovie=> watchlistMovie.id ===movie.id);
         // console.log(isMovieAdded);
     const addToWatchlist=(e)=>{
         // const movieId=e.target.dataset.id

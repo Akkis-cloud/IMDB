@@ -1,8 +1,13 @@
-import { useEffect, useMemo, useState } from "react";
+import { createContext, useEffect, useMemo, useState } from "react";
 import Heading from "./Heading";
 import MovieCard from "./MovieCard";
 import Pagination from "./Pagination";
 const MovieList = () => {
+
+    const MyContext = createContext();
+console.log(MyContext);
+
+
     const [movies, setMovies] = useState([]);
     const [watchList,updateWatchList]=useState(()=>{
         const favouritesData=localStorage.getItem("favourites")||"[]";
